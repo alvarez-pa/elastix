@@ -20,6 +20,24 @@ set( ELASTIX_USE_OPENCL @ELASTIX_USE_OPENCL@ )
 set( ELASTIX_USE_MEVISDICOMTIFF @ELASTIX_USE_MEVISDICOMTIFF@ )
 set( ELASTIX_DOX_DIR @ELASTIX_DOX_DIR@ )
 set( ELASTIX_HELP_DIR @ELASTIX_HELP_DIR@ )
+set( ELASTIX_ITK_DIR @ITK_DIR@ )
+
+# CMake/elastixExportTarget.cmake appends the following suffix to lib filenames.
+set( ELASTIX_LIB_SUFFIX -@ELASTIX_VERSION_MAJOR@.@ELASTIX_VERSION_MINOR@@CMAKE_STATIC_LIBRARY_SUFFIX@ )
+
+# ELASTIX_LIB_DEPENDENCIES: a list of library file names of elastix dependencies.
+foreach( elastix_lib_dependency @elastix_lib_LIB_DEPENDS@ )
+  if( NOT elastix_lib_dependency STREQUAL general )
+    # Exclude ITK and GDCM library file names.
+    if( NOT elastix_lib_dependency MATCHES "[Ii][Tt][Kk].+" )
+      if( NOT elastix_lib_dependency MATCHES "[Gg][Dd][Cc][Mm].+" )
+        list(APPEND ELASTIX_LIB_DEPENDENCIES ${elastix_lib_dependency}${ELASTIX_LIB_SUFFIX} )
+      endif()
+    endif()
+  endif()
+endforeach()
+
+set( ELASTIX_LIB_FILENAME elastix${ELASTIX_LIB_SUFFIX} )
 
 # Maintain backwards compatibility by also exporting old-style target information
 set( ELASTIX_ALL_COMPONENT_LIBS @AllComponentLibs@ )
