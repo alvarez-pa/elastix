@@ -148,6 +148,14 @@ jobs:
         ctest --output-on-failure -VV -j 2 -E "elastix_run_example_COMPARE_IM|elastix_run_3DCT_lung.MI.bspline.ASGD.001_COMPARE_TP" -S dashboard.cmake
       
     - name: Build externalproject example
+      if: matrix.os != 'windows-2019'
+      run: |
+        mkdir externalproject-build
+        cd externalproject-build
+        cmake -DCMAKE_CXX_COMPILER="${{ matrix.cxx-compiler }}" -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DElastix_DIR=${{ github.workspace }}/Elastix-build -GNinja ../Elastix-source/dox/externalproject
+        ninja
+        
+    - name: Build externalproject example
       if: matrix.os == 'windows-2019'
       run: |
         mkdir externalproject-build
