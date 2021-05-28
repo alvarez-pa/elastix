@@ -154,6 +154,11 @@ jobs:
       shell: cmd
 
     - name: Run externalproject example
+      if: matrix.os != 'windows-2019'
+      run: |
+        externalproject-build/elastix_translation_example
+
+    - name: Run externalproject example
       if: matrix.os == 'windows-2019'
       run: |
         set path=${{ github.workspace }}\Elastix-build\bin

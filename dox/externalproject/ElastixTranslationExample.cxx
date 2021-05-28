@@ -28,15 +28,15 @@ main(void)
 {
   enum
   {
-    imageSizeX = 5,
-    imageSizeY = 6
+    imageSizeX = 6,
+    imageSizeY = 5
   };
 
   std::cout << "Image registation example: estimating the translation between two images of " << imageSizeX << "x"
-            << imageSizeY << " pixels\n\n"
-            << "Linked to elastix library version " ELASTIX_VERSION_STRING "\nWeb site: https://elastix.lumc.nl"
-               "\nSource code repository: https://github.com/SuperElastix/elastix"
-               "\nDiscussion forum: https://groups.google.com/g/elastix-imageregistration\n\n";
+            << imageSizeY << " pixels\n"
+            << " - Linked to elastix library version " ELASTIX_VERSION_STRING "\n - Web site: https://elastix.lumc.nl"
+               "\n - Source code repository: https://github.com/SuperElastix/elastix"
+               "\n - Discussion forum: https://groups.google.com/g/elastix-imageregistration\n\n";
 
   using ImageType = itk::Image<float>;
 
@@ -57,32 +57,30 @@ main(void)
   const auto fixedImage = ImageType::New();
   fixedImage->SetRegions(itk::Size<>{ imageSizeX, imageSizeY });
   fixedImage->Allocate(true);
-  fixedImage->SetPixel({ 1, 4 }, 4);
-  fixedImage->SetPixel({ 2, 3 }, 3);
-  fixedImage->SetPixel({ 2, 4 }, 5);
+  fixedImage->SetPixel({ 1, 1 }, 3);
+  fixedImage->SetPixel({ 2, 1 }, 4);
+  fixedImage->SetPixel({ 1, 2 }, 5);
   std::cout << "Fixed image:\n";
   printImage(*fixedImage);
 
   const auto movingImage = ImageType::New();
   movingImage->SetRegions(itk::Size<>{ imageSizeX, imageSizeY });
   movingImage->Allocate(true);
-  movingImage->SetPixel({ 2, 2 }, 4);
-  movingImage->SetPixel({ 3, 1 }, 3);
-  movingImage->SetPixel({ 3, 2 }, 5);
+  movingImage->SetPixel({ 3, 2 }, 3);
+  movingImage->SetPixel({ 4, 2 }, 4);
+  movingImage->SetPixel({ 3, 3 }, 5);
   std::cout << "Moving image:\n";
   printImage(*movingImage);
 
   const auto parameterObject = elx::ParameterObject::New();
   parameterObject->SetParameterMap(
     elx::ParameterObject::ParameterMapType{ { "ImageSampler", { "Full" } },
-                                            { "MaximumNumberOfIterations", { "30" } },
+                                            { "MaximumNumberOfIterations", { "44" } },
                                             { "Metric", { "AdvancedNormalizedCorrelation" } },
                                             { "Optimizer", { "AdaptiveStochasticGradientDescent" } },
                                             { "Transform", { "TranslationTransform" } } });
 
   const auto filter = itk::ElastixRegistrationMethod<ImageType, ImageType>::New();
-  assert(filter != nullptr);
-
   filter->SetFixedImage(fixedImage);
   filter->SetMovingImage(movingImage);
   filter->SetParameterObject(parameterObject);
@@ -95,12 +93,12 @@ main(void)
   assert(!transformParameterMaps.empty());
 
   const auto & transformParameterMap = transformParameterMaps.front();
-  const auto   found = transformParameterMap.find("TransformParameters");
-  assert(found != transformParameterMap.cend());
+  const auto   foundTransformParameter = transformParameterMap.find("TransformParameters");
+  assert(foundTransformParameter != transformParameterMap.cend());
 
   std::cout << "Estimated translation:\n\t";
 
-  for (const auto & estimatedValue : found->second)
+  for (const auto & estimatedValue : foundTransformParameter->second)
   {
     std::cout << estimatedValue << ' ';
   }
