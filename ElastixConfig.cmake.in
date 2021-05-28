@@ -37,7 +37,7 @@ foreach( elastix_lib_dependency @elastix_lib_LIB_DEPENDS@ )
   endif()
 endforeach()
 
-set( ELASTIX_LIB_FILENAME elastix${ELASTIX_LIB_SUFFIX} )
+set( ELASTIX_LIB_FILENAME ${CMAKE_STATIC_LIBRARY_PREFIX}elastix${ELASTIX_LIB_SUFFIX} )
 
 # Maintain backwards compatibility by also exporting old-style target information
 set( ELASTIX_ALL_COMPONENT_LIBS @AllComponentLibs@ )
