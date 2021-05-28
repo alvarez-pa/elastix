@@ -31,7 +31,7 @@ foreach( elastix_lib_dependency @elastix_lib_LIB_DEPENDS@ )
     # Exclude ITK and GDCM library file names.
     if( NOT elastix_lib_dependency MATCHES "[Ii][Tt][Kk].+" )
       if( NOT elastix_lib_dependency MATCHES "[Gg][Dd][Cc][Mm].+" )
-        list(APPEND ELASTIX_LIB_DEPENDENCIES ${elastix_lib_dependency}${ELASTIX_LIB_SUFFIX} )
+        list(APPEND ELASTIX_LIB_DEPENDENCIES ${CMAKE_STATIC_LIBRARY_PREFIX}${elastix_lib_dependency}${ELASTIX_LIB_SUFFIX} )
       endif()
     endif()
   endif()
