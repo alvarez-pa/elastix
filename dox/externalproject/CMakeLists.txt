@@ -3,6 +3,9 @@ project( elxExternalProject )
 
 cmake_minimum_required( VERSION 3.10.2 )
 
+# TODO Remove this "Debug" setting:
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 find_package( Elastix REQUIRED )
 
 # Use the version of ITK from Elastix.
