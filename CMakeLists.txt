@@ -13,6 +13,10 @@ endif()
 cmake_policy( SET CMP0012 NEW )
 cmake_policy( SET CMP0042 NEW )
 
+# TODO Remve these two "Debug" messages:
+message("elastix CMAKE_STATIC_LIBRARY_PREFIX = ${CMAKE_STATIC_LIBRARY_PREFIX}.")
+message("elastix CMAKE_STATIC_LIBRARY_SUFFFIX = ${CMAKE_STATIC_LIBRARY_SUFFIX}.")
+
 #---------------------------------------------------------------------
 include( CTest )
 

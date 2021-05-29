@@ -25,3 +25,7 @@ target_link_libraries( elastix_translation_example
   ${CMAKE_STATIC_LIBRARY_PREFIX}KNNlib${ELASTIX_LIB_SUFFIX}
   ${ELASTIX_LIB_FILENAME}
 )
+
+# TODO Remve these two "Debug" messages:
+message("elastix_translation_example CMAKE_STATIC_LIBRARY_PREFIX = ${CMAKE_STATIC_LIBRARY_PREFIX}.")
+message("elastix_translation_example CMAKE_STATIC_LIBRARY_SUFFFIX = ${CMAKE_STATIC_LIBRARY_SUFFIX}.")
