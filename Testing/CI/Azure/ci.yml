@@ -54,8 +54,9 @@ jobs:
     inputs:
       cmakeArgs: --build . --config Release
       workingDirectory: $(Agent.BuildDirectory)/externalproject-build
-  - bash: $(Agent.BuildDirectory)/externalproject-build/elastix_translation_example
+  - bash: ./externalproject-build/Release/elastix_translation_example
     displayName: 'Run externalproject'
+    workingDirectory: $(Agent.BuildDirectory)
   - bash: ctest -C Release -VV -j 2 -E "elastix_run_example_COMPARE_IM|elastix_run_3DCT_lung.MI.bspline.ASGD.001_COMPARE_TP"
     displayName: 'CTest Elastix'
     workingDirectory: $(ELASTIX_BINARY_DIR)
