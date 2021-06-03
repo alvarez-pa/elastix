@@ -13,15 +13,17 @@ function(elastix_export_target tgt)
     set_property(TARGET ${tgt} PROPERTY VERSION 1)
     set_property(TARGET ${tgt} PROPERTY SOVERSION 1)
 
+    set( ELASTIX_LIB_SUFFIX -${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR}${CMAKE_STATIC_LIBRARY_SUFFIX} )
+
     if ("${tgt}" STREQUAL "elastix_lib")
       set_property(TARGET ${tgt} PROPERTY
-        OUTPUT_NAME elastix-${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR})
+        OUTPUT_NAME ${CMAKE_STATIC_LIBRARY_PREFIX}elastix${ELASTIX_LIB_SUFFIX})
     elseif ("${tgt}" STREQUAL "transformix_lib")
       set_property(TARGET ${tgt} PROPERTY
-        OUTPUT_NAME transformix-${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR})
+        OUTPUT_NAME ${CMAKE_STATIC_LIBRARY_PREFIX}transformix${ELASTIX_LIB_SUFFIX})
     else()
       set_property(TARGET ${tgt} PROPERTY
-        OUTPUT_NAME ${tgt}-${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR})
+        OUTPUT_NAME ${CMAKE_STATIC_LIBRARY_PREFIX}${tgt}${ELASTIX_LIB_SUFFIX})
     endif()
   endif()
 
