@@ -24,8 +24,6 @@ target_link_directories( elastix_translation_example
 target_link_libraries( elastix_translation_example
   ${ITK_LIBRARIES}
   ${ELASTIX_LIB_DEPENDENCIES}
-  ${CMAKE_STATIC_LIBRARY_PREFIX}ANNlib${ELASTIX_LIB_SUFFIX}
-  ${CMAKE_STATIC_LIBRARY_PREFIX}KNNlib${ELASTIX_LIB_SUFFIX}
   ${ELASTIX_LIB_FILENAME}
 )
 
