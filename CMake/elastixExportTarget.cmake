@@ -13,7 +13,7 @@ function(elastix_export_target tgt)
     set_property(TARGET ${tgt} PROPERTY VERSION 1)
     set_property(TARGET ${tgt} PROPERTY SOVERSION 1)
 
-    set( ELASTIX_LIB_SUFFIX -${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR}${CMAKE_STATIC_LIBRARY_SUFFIX} )
+    set( ELASTIX_LIB_SUFFIX -${ELASTIX_VERSION_MAJOR}.${ELASTIX_VERSION_MINOR} )
 
     if ("${tgt}" STREQUAL "elastix_lib")
       set_property(TARGET ${tgt} PROPERTY
